@@ -331,7 +331,7 @@ public class EquipCalc
 		//atk (weapon only)
 		
 		modTemp = equipType == 1F ? 1F + enchant[ID.Attrs.ATK_L] : 1F;
-		modTemp = equipType == 3F ? 1F + enchant[ID.Attrs.ATK_L] : 1F;
+		modTemp = equipType == 3F ? 1F + enchant[ID.Attrs.ATK_L] : modTemp;
 		newstat[ID.Attrs.ATK_L] = raw[ID.Attrs.ATK_L] * modTemp;
 		newstat[ID.Attrs.ATK_H] = raw[ID.Attrs.ATK_H] * modTemp;
 		newstat[ID.Attrs.ATK_AL] = raw[ID.Attrs.ATK_AL] * modTemp;

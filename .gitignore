@@ -43,3 +43,5 @@ options.txt
 /design
 #photoshop
 /*.psd
+/classes/
+build.bat
