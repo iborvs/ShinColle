@@ -2,9 +2,10 @@ Shin Colle
 ==========
 Shinkeiseikan Collection
 
+This is a personal modification.
 --------------------------------------------------------------
 
-Based off https://github.com/Theray070696/ShinColle
+Based off https://github.com/Cappycot/ShinColle https://github.com/Theray070696/ShinColle
 
 Technically working 1.12.2 version. Check bugs.txt for a more in-depth coverage of what I did to it so far and known remaining issues. -Mystia
 
