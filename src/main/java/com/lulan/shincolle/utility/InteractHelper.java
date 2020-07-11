@@ -528,12 +528,20 @@ public class InteractHelper
 			{
 				if (!player.capabilities.isCreativeMode)
 				{
+					/*
 		            if (itemstack.getCount() - 1 <= 0)
 		            {
 		            	//update slot
+
 		            	itemstack = itemstack.getItem().getContainerItem(itemstack);
 		            	player.inventory.setInventorySlotContents(player.inventory.currentItem, itemstack);
-		            }
+		            }*/
+					itemstack.shrink(1);
+
+					if (itemstack.getCount() <= 0)
+					{	//物品用完時要設定為null清空該slot
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
+					}
 		        }
 			}
 			
