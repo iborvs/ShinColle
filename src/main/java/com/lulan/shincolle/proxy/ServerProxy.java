@@ -196,10 +196,24 @@ public class ServerProxy extends CommonProxy
 
 					if (str != null && str.length() > 1)
 					{
+						LogHelper.debug("DEBUG: put $ "+str+" into target list , $"+str.hashCode()+"$");
 						strList.put(str.hashCode(), str);
 					}
 				}
-				
+
+				List<String> mcHostileList = Arrays.asList("EntityZombie","EntitySpider","EntitySketelon");
+				if (ConfigHandler.mcMobIFF)
+					LogHelper.debug("DEBUG: IFF Activated");
+				if (ConfigHandler.mcMobIFF && false)
+					for (int j=0; j<mcHostileList.size(); j++){
+						String str = mcHostileList.get(j);
+
+						if (str != null && str.length() > 1)
+						{
+							LogHelper.debug("DEBUG: put $ "+str+" into target list , $"+str.hashCode()+"$");
+							strList.put(str.hashCode(), str);
+						}
+					}
 				LogHelper.debug("DEBUG: init server proxy: get player data: UID "+uid+" target list size: "+strList.size());
 				customTagetClass.put(uid, strList);
 			}

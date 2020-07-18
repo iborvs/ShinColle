@@ -2215,18 +2215,18 @@ public class GuiDesk extends GuiContainer
 		//get ship but not in colled list
 		if (!EntityHelper.checkShipColled(classID, this.capa))
 		{
+			LogHelper.debug("Exception : "+classID+" is not colled.");
 			this.shipModel = null;
 			return;
 		}
 		
 		//get entity name
 		shipName = ShipCalc.getEntityToSpawnName(classID);
-		
 		//set ship model
-        if (EntityList.getClassFromName(shipName) != null)
+		shipName = shipName.toLowerCase();
+        if (EntityList.getClassFromName(Reference.MOD_ID+":"+shipName) != null)
         {
-            this.shipModel = (BasicEntityShip) EntityList.createEntityByIDFromName(new ResourceLocation(Reference.MOD_ID, shipName), player.world);
-            
+			this.shipModel = (BasicEntityShip) EntityList.createEntityByIDFromName(new ResourceLocation(Reference.MOD_ID, shipName), player.world);
             if (this.shipModel != null)
             {
             	this.shipModel.setStateFlag(ID.F.NoFuel, false);
@@ -2244,6 +2244,9 @@ public class GuiDesk extends GuiContainer
     			this.shipStats = 0;
             }
         }
+        else{
+			LogHelper.debug("can't find shipentity");
+		}
 	}
 	
 	private void setShipMount()

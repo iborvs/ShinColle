@@ -8,6 +8,7 @@ import com.lulan.shincolle.init.ModItems;
 import com.lulan.shincolle.reference.ID;
 import com.lulan.shincolle.tileentity.*;
 import com.lulan.shincolle.utility.EntityHelper;
+import com.lulan.shincolle.utility.LogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -46,15 +47,17 @@ public class GuiHandler implements IGuiHandler
 			
             if (entity instanceof BasicEntityShip)
             {
+				LogHelper.debug("DEBUG: open ship inventory");
             	//get ship class id and register to player data for ship list recording
             	int cid = ((BasicEntityShip) entity).getShipClass();
             	EntityHelper.addPlayerColledShip(cid, player);
-            	
+				EntityHelper.addPlayerColledShip(cid, player);
             	//sync ship when gui opened
             	((BasicEntityShip) entity).sendSyncPacketAll();
 				
             	return new ContainerShipInventory(player.inventory,(BasicEntityShip) entity);
 			}
+
             return null;
 		case ID.Gui.LARGESHIPYARD:	//GUI large shipyard
 			tile = world.getTileEntity(new BlockPos(x, y, z));

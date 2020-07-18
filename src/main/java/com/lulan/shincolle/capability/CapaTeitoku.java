@@ -938,7 +938,9 @@ public class CapaTeitoku implements ICapaTeitoku, IInventory
 	{
 		if (!this.listColleShip.contains(shipID))
 		{
-			this.listColleShip.add(shipID);
+			LogHelper.debug("DEBUG: put $ "+shipID+" into colle list , addPlayerColledShip $");
+			if(this.listColleShip.add(shipID))
+				LogHelper.debug("DEBUG: put $ "+shipID+" into colle list , success $");
 		}
 	}
 	

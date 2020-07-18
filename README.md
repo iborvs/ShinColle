@@ -9,20 +9,6 @@ Based off https://github.com/Cappycot/ShinColle https://github.com/Theray070696/
 
 Technically working 1.12.2 version. Check bugs.txt for a more in-depth coverage of what I did to it so far and known remaining issues. -Mystia
 
--------------------------------------------------------------
-
-This is an unofficial port of the 1.10.2 build to 1.12.2.
-No new features will be added, and only bugs caused by the 1.12.2 port will be fixed.
-
-Add cute ship girls for battle and decoration.
-
-
-To translator (except zh_TW):
-You can edit ship/item description as you like.
-I finished en_US by google translate, please correct the weird translation if you found.
-
-
-
 Dev Video:
 https://www.youtube.com/playlist?list=PLzA0TpkwD25D0Q8bwcejxokKJDVzSnk2A
 

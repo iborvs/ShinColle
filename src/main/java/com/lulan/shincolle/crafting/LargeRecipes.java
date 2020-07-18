@@ -6,6 +6,7 @@ import com.lulan.shincolle.init.ModItems;
 import com.lulan.shincolle.item.IShipResourceItem;
 import com.lulan.shincolle.item.ShipSpawnEgg;
 import com.lulan.shincolle.tileentity.TileMultiGrudgeHeavy;
+import com.lulan.shincolle.utility.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -193,6 +194,7 @@ public class LargeRecipes
 						if (ConfigHandler.easyMode)
 						{
 							//x10
+							LogHelper.debug("DEBUG: put resource");
 							for (int i = 0; i < 4; i++)
 							{
 								addMats[i] = addMats[i] * 10;
@@ -229,6 +231,7 @@ public class LargeRecipes
 								//check easy mode
 								if (ConfigHandler.easyMode)
 								{
+									LogHelper.debug("DEBUG:  ship resource");
 									//x10
 									for (int j = 0; j < 4; j++)
 									{
@@ -276,6 +279,7 @@ public class LargeRecipes
 						//check easy mode
 						if (ConfigHandler.easyMode)
 						{
+							LogHelper.debug("DEBUG: put block resource");
 							//x10
 							for (int i = 0; i < 4; i++)
 							{

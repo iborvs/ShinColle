@@ -47,7 +47,8 @@ public class ConfigHandler
 	public static boolean polyAsMn = false;
 	public static boolean vortexDepth = false;
 	public static boolean mobAttackPlayer = true;
-	
+	public static boolean mcMobIFF = true;
+
 	public static float dropGrudge = 1.0F;
 	
 	public static int closeGUIDist = 64;
@@ -69,7 +70,7 @@ public class ConfigHandler
 	public static int shipAttackPlayer = 0;
 	public static int pairDistChest = 16;
 	public static int pairDistWp = 48;
-	
+
 	//tile entity setting                                    max storage, build speed, fuel magn
 	public static double[] tileShipyardSmall = new double[] {460800D,     48D,         1D};
 	public static double[] tileShipyardLarge = new double[] {1382400D,    48D,         1D};
@@ -221,7 +222,10 @@ public class ConfigHandler
 		
 		//野生船艦是否主動攻擊玩家
 		mobAttackPlayer = config.getBoolean("Attack_Player_ShipMob", CATE_GENERAL, true, "for mob ship, true: attack player automatically");
-		
+
+		//是否默认攻击原版敌对生物
+		mcMobIFF = config.getBoolean("MC_HostileMob_IFF", CATE_GENERAL, true, "for mob ship, true: put mc hostile mobs into iff list");
+
 		//船艦是否主動攻擊玩家
 		shipAttackPlayer = config.getInt("Attack_Player_Ship", CATE_GENERAL, 0, 0, 3, "for pet ship, 0: ship don't attack player automatically, 1: attack hostile player, 2: attack hostile and neutral player, 3: attack all player even if the player isn't in a team");
 				
