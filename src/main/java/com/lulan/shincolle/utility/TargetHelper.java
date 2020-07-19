@@ -78,6 +78,7 @@ public class TargetHelper
 		public boolean apply(Entity target2)
 		{
     		//update flag
+
     		if (host instanceof BasicEntityShip)
     		{
     			this.isPVP = ((BasicEntityShip) host).getStateFlag(ID.F.PVPFirst);
@@ -129,7 +130,6 @@ public class TargetHelper
         		break;
             	}
             }
-			
             //dont attack these entity
         	if (isEntityInvulnerable(target2)) return false;
     		
@@ -169,7 +169,7 @@ public class TargetHelper
     			{
         			if (!((BasicEntityShip)host).getEntitySenses().canSee(target2))
         			{
-        				return false;
+        				//return false;
         			}
         		}
     		}
@@ -178,7 +178,8 @@ public class TargetHelper
 			{
     			if (!((EntityLiving)host).getEntitySenses().canSee(target2))
     			{
-    				return false;
+					LogHelper.debug("is living and cannot see");
+    				//return false;
     			}
     		}
 			
@@ -222,12 +223,14 @@ public class TargetHelper
 			//check mob
         	if(target2 instanceof EntityMob || target2 instanceof EntitySlime)
         	{
+				LogHelper.debug("is mob!");
         		return true;
         	}
         	
         	//check custom target (including pet check)
         	if (checkAttackTargetList(host, target2))
         	{
+				LogHelper.debug("in targetlist!");
         		return true;
         	}
         	

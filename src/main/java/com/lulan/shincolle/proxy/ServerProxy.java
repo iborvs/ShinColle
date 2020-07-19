@@ -201,10 +201,10 @@ public class ServerProxy extends CommonProxy
 					}
 				}
 
-				List<String> mcHostileList = Arrays.asList("EntityZombie","EntitySpider","EntitySketelon");
+				List<String> mcHostileList = Arrays.asList("EntityZombie","EntitySpider","EntitySketelon","EntityCreeper");
 				if (ConfigHandler.mcMobIFF)
 					LogHelper.debug("DEBUG: IFF Activated");
-				if (ConfigHandler.mcMobIFF && false)
+				if (ConfigHandler.mcMobIFF)
 					for (int j=0; j<mcHostileList.size(); j++){
 						String str = mcHostileList.get(j);
 

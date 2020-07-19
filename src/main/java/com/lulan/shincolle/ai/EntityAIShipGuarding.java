@@ -16,7 +16,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.Collections;
 import java.util.List;
@@ -118,9 +121,15 @@ public class EntityAIShipGuarding extends EntityAIBase
     		host.getStateMinor(ID.M.NumGrudge) > 0)
     	{
     		//get guard target
-    		return checkGuardTarget();
+			if (host2.ticksExisted % 32 == 0){
+				fireControl();
+                return true;
+			}
+			if(checkGuardTarget()){
+				return true;
+			}
+    		return false;
     	}
-    	
         return false;
     }
 
@@ -179,14 +188,15 @@ public class EntityAIShipGuarding extends EntityAIBase
     	 * 2. target AI = active attack
     	 * 3. guard type > 0
     	 */
+		LogHelper.debug("DEBUG : updating task");
     	if (isMoving && ship != null && !ship.getStateFlag(ID.F.PassiveAI) && ship.getStateMinor(ID.M.GuardType) > 0)
     	{
-    		//update parms
+			//LogHelper.debug("DEBUG : guarding AI: exec moving attack");
+			//update parms
     		if (host2.ticksExisted % 64 == 0)
     		{
     			this.updateAttackParms();
     		}
-//    		LogHelper.info("DEBUG : guarding AI: exec moving attack");
     		//delay--
     		this.delayTime[0] = this.delayTime[0] - 1;
     		this.delayTime[1] = this.delayTime[1] - 1;
@@ -207,6 +217,7 @@ public class EntityAIShipGuarding extends EntityAIBase
     		//attack target
     		if (this.target != null && this.host2.getEntitySenses().canSee(this.target))
     		{
+    			LogHelper.debug("ship saw it:"+ this.target.getName());
     			//onsight++
     			this.onSightTime++;
     			
@@ -336,11 +347,19 @@ public class EntityAIShipGuarding extends EntityAIBase
 	//find target
 	private void findTarget()
 	{
-		List<EntityLivingBase> list1 = this.host2.world.getEntitiesWithinAABB(EntityLivingBase.class, this.host2.getEntityBoundingBox().expand(this.range * 0.9D, this.range * 0.6D, this.range * 0.9D), this.targetSelector);
-        
+		AxisAlignedBB fireRange = this.host2.getEntityBoundingBox().expand(this.range * 0.9D, this.range * 0.6D, this.range * 0.9D);
+		fireRange =  fireRange.expand(this.range * -0.9D, this.range * -0.6D, this.range * -0.9D);
+		List<EntityLivingBase> list1 = this.host2.world.getEntitiesWithinAABB(EntityLivingBase.class, fireRange, this.targetSelector);
+		String str = "";
+		for(EntityLivingBase i : list1){
+        	str+=i.getName();
+		}
+
+		//LogHelper.debug("list size: "+list1.size());
+		LogHelper.debug("target list:"+str);
         //sort target list
         Collections.sort(list1, this.targetSorter);
-        
+
         //get nearest target
 		if (list1.size() > 2)
 		{
@@ -531,6 +550,49 @@ public class EntityAIShipGuarding extends EntityAIBase
 		
 		return false;
 	}
-	
-	
+
+	private void fireControl(){
+		LogHelper.debug("de:fireControl");
+    	this.updateAttackParms();
+		//delay--
+		this.delayTime[0] = this.delayTime[0] - 1;
+		this.delayTime[1] = this.delayTime[1] - 1;
+		this.delayTime[2] = this.delayTime[2] - 1;
+		//find target
+		this.findTarget();
+		if(this.target!=null)
+			LogHelper.debug("fire target"+this.target.getName());
+		else
+			LogHelper.debug("target not found");
+			//clear target if target dead
+		if (this.target != null && !this.target.isEntityAlive())
+		{
+			this.target = null;
+		}
+
+		//attack target
+		if (this.target != null && this.host2.getEntitySenses().canSee(this.target))
+		{
+			LogHelper.debug("ship saw it:"+ this.target.getName());
+			//onsight++
+			this.onSightTime++;
+
+			//calc dist
+			this.tarDistX = this.target.posX - this.host2.posX;
+			this.tarDistY = this.target.posY - this.host2.posY;
+			this.tarDistZ = this.target.posZ - this.host2.posZ;
+			this.tarDistSqrt = tarDistX*tarDistX + tarDistY*tarDistY + tarDistZ*tarDistZ;
+
+			//attack target within range
+			if (tarDistSqrt <= this.rangeSq && this.onSightTime >= this.aimTime)
+			{
+				this.attackTarget();
+			}
+		}
+		//no target or not onsight, reset
+		else
+		{
+			this.onSightTime = 0;
+		}
+	}
 }
