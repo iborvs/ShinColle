@@ -552,7 +552,7 @@ public class EntityAIShipGuarding extends EntityAIBase
 	}
 
 	private void fireControl(){
-		LogHelper.debug("de:fireControl");
+		//LogHelper.debug("de:fireControl");
     	this.updateAttackParms();
 		//delay--
 		this.delayTime[0] = this.delayTime[0] - 1;
@@ -560,23 +560,23 @@ public class EntityAIShipGuarding extends EntityAIBase
 		this.delayTime[2] = this.delayTime[2] - 1;
 		//find target
 		this.findTarget();
+		/*
 		if(this.target!=null)
 			LogHelper.debug("fire target"+this.target.getName());
 		else
 			LogHelper.debug("target not found");
 			//clear target if target dead
+		 */
 		if (this.target != null && !this.target.isEntityAlive())
 		{
 			this.target = null;
 		}
-
 		//attack target
 		if (this.target != null && this.host2.getEntitySenses().canSee(this.target))
 		{
-			LogHelper.debug("ship saw it:"+ this.target.getName());
+			//LogHelper.debug("ship saw it:"+ this.target.getName());
 			//onsight++
 			this.onSightTime++;
-
 			//calc dist
 			this.tarDistX = this.target.posX - this.host2.posX;
 			this.tarDistY = this.target.posY - this.host2.posY;
@@ -587,12 +587,13 @@ public class EntityAIShipGuarding extends EntityAIBase
 			if (tarDistSqrt <= this.rangeSq && this.onSightTime >= this.aimTime)
 			{
 				this.attackTarget();
-			}
+                this.host2.getLookHelper().setLookPosition(pos[0], pos[1], pos[2], 30F, this.host2.getVerticalFaceSpeed());
+            }
 		}
 		//no target or not onsight, reset
 		else
 		{
 			this.onSightTime = 0;
 		}
-	}
+		}
 }

@@ -1,3 +1,13 @@
+深海栖舰收藏
+==========
+这是一个个人修订版本，其中包含了对旧1.12.2版本的bug的修复，以及少量模组内容调整。
+
+基于https://github.com/Cappycot/ShinColle
+
+目前能够在1.12.2版本forge上正常运行，但仍有可能存在部分bug。
+
+
+
 Shin Colle
 ==========
 Shinkeiseikan Collection
